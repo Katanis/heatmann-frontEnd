@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-
-const productCard = (props) => {
+const productCard = props => {
   const style = {
     container: {
       overflow: 'none',
@@ -9,7 +9,7 @@ const productCard = (props) => {
       boxShadow: '0px 1px 5px 5px rgba(0,0,0,0.1)',
       maxWidth: '30%'
     },
-    mobileContainer:{
+    mobileContainer: {
       overflow: 'none',
       margin: '20px',
       boxShadow: '0px 1px 5px 5px rgba(0,0,0,0.1)',
@@ -37,16 +37,21 @@ const productCard = (props) => {
       lineHeight: '15px',
       color: '#535353',
       padding: '20px'
+    },
+    link: {
+      textDecoration: 'none'
     }
-  }
+  };
 
-  return(
+  return (
     <div style={props.mobileScreen ? style.mobileContainer : style.container}>
-      <p style={style.productName}>{props.name}</p>
-      <img style={style.image} alt='product' src={props.url}></img>
-      <p style={style.productDescription}>{props.description}</p>
+      <Link style={style.link} to={'/product/' + props.link}>
+        <p style={style.productName}>{props.name}</p>
+        <img style={style.image} alt="product" src={props.url}></img>
+        <p style={style.productDescription}>{props.description}</p>
+      </Link>
     </div>
   );
-}
+};
 
 export default productCard;
