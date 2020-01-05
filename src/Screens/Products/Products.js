@@ -133,12 +133,12 @@ class Products extends React.Component {
             logo={this.state.path + '/images/logos_Headmann-big.png'}
           ></BurgerMenu>
         </header>
-        <body>
+        <div>
           <h1 style={styles.h1}>Trench Convectors</h1>
           <this.TrenchProductBlock></this.TrenchProductBlock>
           <h1 style={styles.h1}>Wall and freestanding</h1>
           <this.CubeProductBlock></this.CubeProductBlock>
-        </body>
+        </div>
       </div>
     );
   }
