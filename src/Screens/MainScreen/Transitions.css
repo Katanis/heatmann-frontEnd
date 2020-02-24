@@ -1,0 +1,13 @@
+.transition-container1{
+  transition: all 2 s;
+  transition: height, opacity 2s;
+  display: block;
+  position: absolute;
+  background-color: wheat;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100VW;
+
+}

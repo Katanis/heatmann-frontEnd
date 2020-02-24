@@ -5,9 +5,10 @@ const productCard = props => {
   const style = {
     container: {
       overflow: 'none',
-      margin: '20px',
+      margin: '0 5px 30px',
       boxShadow: '0px 1px 5px 5px rgba(0,0,0,0.1)',
-      maxWidth: '30%'
+      maxWidth: '30%',
+      minWidth: '30%'
     },
     mobileContainer: {
       overflow: 'none',

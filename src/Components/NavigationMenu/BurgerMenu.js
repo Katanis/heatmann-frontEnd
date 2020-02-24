@@ -1,172 +1,211 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
+import NormalMenu from './NormalMenu';
+import FooterExternal from '../Footer/Footer';
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      menuOpen:false,
+    this.state = {
+      menuOpen: false,
+      hideNav: null
+    };
+  }
+
+  resize() {
+    let currentHideNav = window.innerWidth <= 760;
+    if (currentHideNav !== this.state.hideNav) {
+      this.setState({ hideNav: currentHideNav });
     }
   }
-  
+
+  componentDidMount() {
+    window.addEventListener('resize', this.resize.bind(this));
+    this.resize();
+  }
+
   handleMenuClick() {
-    this.setState({menuOpen:!this.state.menuOpen});
+    this.setState({ menuOpen: !this.state.menuOpen });
   }
-  
+
   handleLinkClick() {
-    this.setState({menuOpen: false});
+    this.setState({ menuOpen: false });
   }
-  
-  render(){
-    const styles= 
-      {
-        container:{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: '99',
-          opacity: 1,
-          display:'flex',
-          alignItems:'center',
-          justifyContent: 'space-between',
-          background: '#FFF',
-          width: '100%',
-          color: 'Orange',
-          fontFamily:'open-sans',
-        },
-        logo: {
-          margin: '0 auto',
-        },
-        body: {
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '100vw',
-          height: '50px',
-          filter: this.state.menuOpen ? 'blur(2px)':null,
-          transition: 'filter 0.5s ease',
-        },
-        link: {
-          textDecoration: 'none',
-          fontFamily: 'Open Sans',
-          fontStyle: 'normal',
-          fontWeight: 'normal',
-          fontSize: '20px',
-          textAlign: 'justify',
-          color: '#535353',
-          marginTop: '5px'
-        }
+
+  render() {
+    const styles = {
+      container: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: '99',
+        opacity: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        background: '#FFF',
+        width: '100%',
+        color: 'Orange',
+        fontFamily: 'open-sans'
+      },
+      logo: {
+        margin: '0 auto'
+      },
+      body: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100vw',
+        height: 'auto',
+        filter: this.state.menuOpen ? 'blur(2px)' : null,
+        transition: 'filter 0.5s ease'
+      },
+      link: {
+        textDecoration: 'none',
+        fontFamily: 'Open Sans',
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        fontSize: '20px',
+        textAlign: 'justify',
+        color: '#535353',
+        marginTop: '5px',
+        borderBottom: '0.25px solid #E1E1E1;'
       }
-    // const menu = ['About Us','Our Products','Services','FAQ','Contact Us']
-    // const menuItems = menu.map((val,index)=>{
-    //   return (
-    //     <MenuItem 
-    //       key={index} 
-    //       delay={`${index * 0.1}s`}
-    //       onClick={()=>{this.handleLinkClick();}}></MenuItem>)
-    // });
+    };
     
-    return(
+    return (
       <div>
-        <div style={styles.container}>
-          <Link to="/"><img alt='heamtann-logo' src={this.props.logo}></img></Link>
-          <MenuButton open={this.state.menuOpen} onClick={()=>this.handleMenuClick()} color='orange'/>
+        {this.state.hideNav ? (
+          <div>
+            <div style={styles.container}>
+              <Link to="/">
+                <img alt="heamtann-logo" src={this.props.logo}></img>
+              </Link>
+              <MenuButton
+                open={this.state.menuOpen}
+                onClick={() => this.handleMenuClick()}
+                color="orange"
+              />
+            </div>
+            <Menu open={this.state.menuOpen}>
+              {/* {menuItems} */}
+              {/* <Link to="/">Home</Link> */}
+              <Link style={styles.link} to="/products">
+                Products
+              </Link>
+              <Link style={styles.link} to="/projects">
+                Projects
+              </Link>
+              <Link style={styles.link} to="/about">
+                About us
+              </Link>
+            </Menu>
+          </div>
+        ) : (
+          <NormalMenu logo={this.props.logo}></NormalMenu>
+        )}
+
+        <div
+          style={
+            this.state.hideNav
+              ? { marginTop: '60px' }
+              : { marginLeft: '150px', marginRight: '150px' }
+          }
+        >
+          {this.props.children}
         </div>
-        <Menu open={this.state.menuOpen}>
-          {/* {menuItems} */}
-          {/* <Link to="/">Home</Link> */}
-          <Link style={styles.link} to="/products">Products</Link>
-          <Link style={styles.link} to="/projects">Projects</Link>
-          <Link style={styles.link} to="/about">About us</Link>
-        </Menu>
         <div style={styles.body}>
-          {/* <Footer name='Menu'/> */}
+          <FooterExternal></FooterExternal>
+          {/* <Footer name="Menu" /> */}
         </div>
       </div>
-    )
+    );
   }
 }
 
 /* MenuItem.jsx*/
-class MenuItem extends React.Component{
-  constructor(props){
+class MenuItem extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      hover:false,
-    }
+      hover: false
+    };
   }
-  
-  handleHover(){
-    this.setState({hover:!this.state.hover});
+
+  handleHover() {
+    this.setState({ hover: !this.state.hover });
   }
-  
-  render(){
-    const styles={
+
+  render() {
+    const styles = {
       container: {
         opacity: 0,
         animation: '1s appear forwards',
-        animationDelay:this.props.delay,
+        animationDelay: this.props.delay
       },
-      menuItem:{
-        fontFamily:`'Open Sans', sans-serif`,
+      menuItem: {
+        fontFamily: `'Open Sans', sans-serif`,
         fontSize: '1.2rem',
         margin: '0 5%',
         cursor: 'pointer',
-        color: 'black',
+        color: 'black'
         // transition: 'color 0.2s ease-in-out',
         // animation: '0.5s slideIn forwards',
         // animationDelay:this.props.delay,
-
       },
       line: {
         width: '90%',
         height: '1px',
         background: 'gray',
-        margin: '0 auto',
+        margin: '0 auto'
         // animation: '0.5s shrink forwards',
         // animationDelay:this.props.delay,
-        
       }
-    }
-    return(
+    };
+    return (
       <div style={styles.container}>
-        <div 
-          style={styles.menuItem} 
-          onMouseEnter={()=>{this.handleHover();}} 
-          onMouseLeave={()=>{this.handleHover();}}
+        <div
+          style={styles.menuItem}
+          onMouseEnter={() => {
+            this.handleHover();
+          }}
+          onMouseLeave={() => {
+            this.handleHover();
+          }}
           onClick={this.props.onClick}
         >
-          {this.props.children}  
+          <div style={{ marginLeft: '150px', marginRight: '150px' }}>
+            {this.props.children}
+          </div>
         </div>
-      <div style={styles.line}/>
-    </div>  
-    )
+        <div style={styles.line} />
+      </div>
+    );
   }
 }
 
 /* Menu.jsx */
 class Menu extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      open: this.props.open? this.props.open:false,
+    this.state = {
+      open: this.props.open ? this.props.open : false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.open !== this.state.open) {
+      this.setState({ open: nextProps.open });
     }
   }
-    
-  componentWillReceiveProps(nextProps){
-    if(nextProps.open !== this.state.open){
-      this.setState({open:nextProps.open});
-    }
-  }
-  
-  render(){
-    const styles={
+
+  render() {
+    const styles = {
       container: {
         position: 'absolute',
         left: 0,
-        height: this.state.open? '30%': 0,
+        height: this.state.open ? 'auto' : 0,
         width: '30vw',
         display: 'flex',
         flexDirection: 'column',
@@ -175,90 +214,96 @@ class Menu extends React.Component {
         color: 'black',
         transition: 'height 0.3s ease',
         zIndex: 2,
+        boxSizing: 'border-box',
+        borderBottomRightRadius: '20px'
       },
       menuList: {
         paddingTop: '5px',
-        marginTop: '50px',
+        // marginTop: '50px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start'
       }
-    }
-    return(
+    };
+    return (
       <div style={styles.container}>
-        {
-          this.state.open?
-            <div style={styles.menuList}>
-              {this.props.children}
-            </div>:null
-        }
+        {this.state.open ? (
+          <div style={styles.menuList}>{this.props.children}</div>
+        ) : null}
       </div>
-    )
+    );
   }
 }
 
 /* MenuButton.jsx */
 class MenuButton extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      open: this.props.open? this.props.open:false,
-      color: this.props.color? this.props.color:'black',
+    this.state = {
+      open: this.props.open ? this.props.open : false,
+      color: this.props.color ? this.props.color : 'black'
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.open !== this.state.open) {
+      this.setState({ open: nextProps.open });
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.open !== this.state.open){
-      this.setState({open:nextProps.open});
-    }
+  handleClick() {
+    this.setState({ open: !this.state.open });
   }
-  
-  handleClick(){
-  this.setState({open:!this.state.open});
-  }
-  
-  render(){
+
+  render() {
     const styles = {
       container: {
         height: '32px',
         width: '32px',
-        display:'flex',
+        display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         cursor: 'pointer',
-        padding: '4px',
+        padding: '4px'
       },
       line: {
         height: '2px',
         width: '20px',
         background: this.state.color,
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s ease'
       },
       lineTop: {
-        transform: this.state.open ? 'rotate(45deg)':'none',
+        transform: this.state.open ? 'rotate(45deg)' : 'none',
         transformOrigin: 'top left',
-        marginBottom: '5px',
+        marginBottom: '5px'
       },
       lineMiddle: {
-        opacity: this.state.open ? 0: 1,
-        transform: this.state.open ? 'translateX(-16px)':'none',
+        opacity: this.state.open ? 0 : 1,
+        transform: this.state.open ? 'translateX(-16px)' : 'none'
       },
       lineBottom: {
-        transform: this.state.open ? 'translateX(-1px) rotate(-45deg)':'none',
+        transform: this.state.open ? 'translateX(-1px) rotate(-45deg)' : 'none',
         transformOrigin: 'top left',
-        marginTop: '5px',
-      },       
-    }
-    return(
-      <div style={styles.container} 
-        onClick={this.props.onClick ? this.props.onClick: 
-          ()=> {this.handleClick();}}>
-        <div style={{...styles.line,...styles.lineTop}}/>
-        <div style={{...styles.line,...styles.lineMiddle}}/>
-        <div style={{...styles.line,...styles.lineBottom}}/>
+        marginTop: '5px'
+      }
+    };
+    return (
+      <div
+        style={styles.container}
+        onClick={
+          this.props.onClick
+            ? this.props.onClick
+            : () => {
+                this.handleClick();
+              }
+        }
+      >
+        <div style={{ ...styles.line, ...styles.lineTop }} />
+        <div style={{ ...styles.line, ...styles.lineMiddle }} />
+        <div style={{ ...styles.line, ...styles.lineBottom }} />
       </div>
-    )
+    );
   }
 }
 
@@ -266,46 +311,75 @@ class MenuButton extends React.Component {
 function Footer(props) {
   const styles = {
     footer: {
-      position: 'absolute',
+      // position: 'absolute',
       bottom: 0,
       width: '100%',
       marginTop: '1rem',
-      display:'flex',
-      flexDirection:'column',
-      justifyContent:'center',
-      alignItems:'center',
-      color: props.color,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: props.color
     },
     line: {
-      height:'1px',
-      width:'90%',
-      background: props.color,
+      height: '1px',
+      width: '90%',
+      background: props.color
     },
     text: {
-      padding: '0.5rem',
+      padding: '0.5rem'
     }
-  }  
-  
+  };
+
+  const style = {
+    verticalLine: {
+      borderLeft: '1px solid #F96302'
+    },
+    container: {
+      display: 'flex',
+      flexWrap: 'no-wrap',
+      justifyContent: 'space-evenly'
+    },
+    text: {
+      fontFamily: 'Oswald',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontSize: '18px',
+      lineHeight: '27px',
+      textTransform: 'uppercase',
+      color: '#535353',
+      wordWrap: 'break-word'
+    },
+    childText: {
+      fontFamily: 'Oswald',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontSize: '13px',
+      lineHeight: '104.68%',
+      textTransform: 'uppercase',
+      color: '#535353'
+    }
+  };
+
   return (
-    <div style={styles.footer}>
-      <div style={styles.line}>
-      </div>
-      <div style={styles.text}>{props.title} created by Smashcat &copy; 2017
+    <div style={{ ...styles.footer, backgroundColor: '#F2F2F2' }}>
+      <div style={styles.line}></div>
+
+      <div style={styles.text}>
+        HEATMANN GmbH All Rights Reserved &copy; 2013-2019
       </div>
     </div>
-  )
+  );
 }
 
 Footer.defaultProps = {
-  color: 'black',
-  title: 'hello world!'
-}
+  color: 'black'
+  // title: 'hello world!'
+};
 
 Footer.propTypes = {
   color: PropTypes.string,
-  title: PropTypes.string,
-}
-
-
+  title: PropTypes.string
+};
 
 export default App;

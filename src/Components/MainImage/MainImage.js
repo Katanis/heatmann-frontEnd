@@ -20,6 +20,13 @@ Image = props => {
       width: '90vw',
       margin: '4%'
     },
+    desktopBigImage: {
+      width: 'auto',
+      height: '400px',
+      // margin: '4%',
+      maxWidth: '700px',
+      bacground: '#F7F7F7',
+    },
     title: {
       textAlign: 'left',
       fontFamily: 'Oswald',
@@ -45,10 +52,10 @@ Image = props => {
   };
   return (
     <div>
-      <h1 style={style.title}>{props.name}</h1>
+      
       <img
         id="main-image"
-        style={style.bigImage}
+        style={props.screen ? style.bigImage : style.desktopBigImage}
         alt={props.name + 'image'}
         src={props.url}
       ></img>

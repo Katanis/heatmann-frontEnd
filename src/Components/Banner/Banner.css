@@ -1,0 +1,18 @@
+
+
+#Banner img {
+
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+#Banner img.bottom{
+  opacity: 0;
+}
+
+#Banner img.top:hover {
+  opacity: 0;
+  
+}
