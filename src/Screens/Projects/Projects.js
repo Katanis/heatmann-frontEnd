@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import axios from 'axios';
 import BurgerMenu from '../../Components/NavigationMenu/BurgerMenu';
-
+import { useTranslation } from 'react-i18next';
 import ProjectCard from '../../Components/ProjectCard/ProjectCard';
 
 class Projects extends React.Component {
   state = {
     projects: [],
     path: 'http://18.189.49.66:3000',
-    hideNav: null
+    hideNav: null,
   };
 
   componentDidMount() {
-    axios.get(this.state.path + '/api/projects').then(res => {
+    axios.get(this.state.path + '/api/projects').then((res) => {
       const projects = res.data;
       this.setState({ projects: projects.project });
       console.log('debuging Project Info: ' + projects.project.description);
@@ -36,17 +36,16 @@ class Projects extends React.Component {
         maxWidth: '400px',
         maxHeight: '450px',
         width: '450px',
-        
       },
       container: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-evenly'
-      }
-    }
+        justifyContent: 'space-evenly',
+      },
+    };
     return (
       <div style={style.container}>
-        {this.state.projects.map(result => {
+        {this.state.projects.map((result) => {
           return (
             <ProjectCard
               style={style.pcDisplay}
@@ -79,15 +78,21 @@ class Projects extends React.Component {
         fontSize: '50px',
         textTransform: 'uppercase',
         color: '#535353',
-        textAlign: 'center'
-      }
+        textAlign: 'center',
+      },
     };
 
+    function MyComponent() {
+      const { t, i18n } = useTranslation();
+
+      return <h1 style={styles.h1}>{t('data.projects.title')}</h1>;
+    }
+
     return (
-      <BurgerMenu
-              logo={path + '/images/logos_Headmann-big.png'}
-            >
-        <h1 style={styles.h1}>Projects</h1>
+      <BurgerMenu logo={path + '/images/logos_Headmann-big.png'}>
+        <Suspense fallback="loading">
+          <MyComponent />
+        </Suspense>
         <div>
           <this.ProjectBlock></this.ProjectBlock>
         </div>

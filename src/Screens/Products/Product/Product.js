@@ -26,7 +26,7 @@ class Product extends React.Component {
       showDownload: false,
       hideNav: null,
       responsive: {
-        1024: { items: 6 }
+        1024: { items: 6 },
       },
       currentIndex: 0,
       productType: null,
@@ -47,15 +47,15 @@ class Product extends React.Component {
     //product info api call
     let url =
       'http://18.189.49.66:3000/api/product/' + this.props.match.params.name;
-    axios.get(url).then(result => {
+    axios.get(url).then((result) => {
       const product = result.data;
       this.setState({
         productInfo: product.data,
-        imageUrl: url + product.data[0].path
+        imageUrl: url + product.data[0].path,
       });
     });
     this.setState({
-      keyToDetailedInfo: this.props.match.params.name
+      keyToDetailedInfo: this.props.match.params.name,
     });
 
     //Calculator api call
@@ -66,17 +66,17 @@ class Product extends React.Component {
       'http://18.189.49.66:3000/api/calculate_width/widht/' +
       this.state.productType;
     console.log(calculatorWidthUrl);
-    axios.get(calculatorHeightUrl).then(result => {
+    axios.get(calculatorHeightUrl).then((result) => {
       const calculatorHeight = result.data;
       this.setState({
-        calcHeight: calculatorHeight.result
+        calcHeight: calculatorHeight.result,
       });
     });
 
-    axios.get(calculatorWidthUrl).then(result => {
+    axios.get(calculatorWidthUrl).then((result) => {
       const calculatorHeight = result.data;
       this.setState({
-        calcWidth: calculatorHeight.result
+        calcWidth: calculatorHeight.result,
       });
     });
 
@@ -113,7 +113,7 @@ class Product extends React.Component {
     }
   }
 
-  changeImageHandler = id => {
+  changeImageHandler = (id) => {
     let url = document.getElementById(id).src;
     this.setState({ imageUrl: url });
     document.getElementById('main-image').src = url;
@@ -123,7 +123,7 @@ class Product extends React.Component {
     this.setState({
       showTechnicalBlock: !this.state.showTechnicalBlock,
       showCalculator: false,
-      showDownload: false
+      showDownload: false,
     });
   }
 
@@ -131,7 +131,7 @@ class Product extends React.Component {
     this.setState({
       showCalculator: !this.state.showCalculator,
       showDownload: false,
-      showTechnicalBlock: false
+      showTechnicalBlock: false,
     });
   }
 
@@ -139,7 +139,7 @@ class Product extends React.Component {
     this.setState({
       showDownload: !this.state.showDownload,
       showCalculator: false,
-      showTechnicalBlock: false
+      showTechnicalBlock: false,
     });
   }
 
@@ -172,7 +172,7 @@ class Product extends React.Component {
         justifyContent: 'space-between',
         alignCenter: 'center',
         width: 'fit-content',
-        maxWidth: '700px'
+        maxWidth: '700px',
       },
       smallImage: {
         width: '120px',
@@ -181,8 +181,8 @@ class Product extends React.Component {
         cursor: 'pointer',
         height: '80px',
         maxHeight: '200px',
-        background: '#F7F7F7'
-      }
+        background: '#F7F7F7',
+      },
     };
 
     const mobileStyle = {
@@ -190,7 +190,7 @@ class Product extends React.Component {
         width: '80px',
         padding: '10px',
         cursor: 'pointer',
-        maxHeight: '80px'
+        maxHeight: '80px',
       },
       imageContainer: {
         display: 'flex',
@@ -199,7 +199,7 @@ class Product extends React.Component {
         padding: '20px 20px 20px 0',
         justifyContent: 'space-between',
         alignCenter: 'center',
-        maxWidth: '700px'
+        maxWidth: '700px',
       },
       bigImageContainer: {
         display: 'flex',
@@ -209,7 +209,7 @@ class Product extends React.Component {
         justifyContent: 'space-between',
         alignCenter: 'center',
         width: 'fit-content',
-        maxWidth: '700px'
+        maxWidth: '700px',
       },
       bigImage: {
         width: '90vw',
@@ -247,15 +247,15 @@ class Product extends React.Component {
         textTransform: 'uppercase',
         color: '#535353',
         // margin: '4%'
-      }
-    }
+      },
+    };
 
     const style = {
       smallImage: {
         width: '80px',
         padding: '10px',
         cursor: 'pointer',
-        maxHeight: '80px'
+        maxHeight: '80px',
       },
       imageContainer: {
         display: 'flex',
@@ -264,7 +264,7 @@ class Product extends React.Component {
         padding: '20px 20px 20px 0',
         justifyContent: 'space-between',
         alignCenter: 'center',
-        maxWidth: '700px'
+        maxWidth: '700px',
       },
       bigImageContainer: {
         display: 'flex',
@@ -274,11 +274,11 @@ class Product extends React.Component {
         justifyContent: 'space-between',
         alignCenter: 'center',
         width: 'fit-content',
-        maxWidth: '700px'
+        maxWidth: '700px',
       },
       bigImage: {
         width: '90vw',
-        margin: '4%'
+        margin: '4%',
       },
       title: {
         textAlign: 'left',
@@ -289,7 +289,7 @@ class Product extends React.Component {
         lineHeight: '118.2%',
         textTransform: 'uppercase',
         color: '#535353',
-        margin: '4%'
+        margin: '4%',
       },
       title2: {
         textAlign: 'left',
@@ -300,7 +300,7 @@ class Product extends React.Component {
         lineHeight: '118.2%',
         textTransform: 'uppercase',
         color: '#535353',
-        margin: '4%'
+        margin: '4%',
       },
       description: {
         textAlign: 'left',
@@ -311,8 +311,8 @@ class Product extends React.Component {
         lineHeight: '118.2%',
         textTransform: 'uppercase',
         color: '#535353',
-        margin: '4%'
-      }
+        margin: '4%',
+      },
     };
     return (
       <BurgerMenu logo="http://18.189.49.66:3000/images/logos_Headmann-big.png">
@@ -335,35 +335,48 @@ class Product extends React.Component {
                           : desktopstyle.bigImageContainer
                       }
                     >
-                     
-                        {this.state.productInfo.map(info => {
-                          return (
-                            <img
-                              id={info.picid}
-                              style={
-                                this.state.hideNav
-                                  ? style.smallImage
-                                  : desktopstyle.smallImage
-                              }
-                              alt={info.name}
-                              key={info.picid}
-                              src={this.state.url + info.path}
-                              onClick={() =>
-                                this.changeImageHandler(info.picid)
-                              }
-                            ></img>
-                          );
-                        })}
+                      {this.state.productInfo.map((info) => {
+                        return (
+                          <img
+                            id={info.picid}
+                            style={
+                              this.state.hideNav
+                                ? style.smallImage
+                                : desktopstyle.smallImage
+                            }
+                            alt={info.name}
+                            key={info.picid}
+                            src={this.state.url + info.path}
+                            onClick={() => this.changeImageHandler(info.picid)}
+                          ></img>
+                        );
+                      })}
                     </div>
                   </div>
                 }
                 right={
                   <div style={this.state.hideNav ? null : { margin: '0 20px' }}>
-                    <h1 style={this.state.hideNav ? mobileStyle.title : style.title}>
+                    <h1
+                      style={
+                        this.state.hideNav ? mobileStyle.title : style.title
+                      }
+                    >
                       {this.state.productInfo[0].name}
                     </h1>
-                    <p style={this.state.hideNav ? mobileStyle.title2 : style.title2}>About</p>
-                    <p style={this.state.hideNav ? mobileStyle.description : style.description}>
+                    <p
+                      style={
+                        this.state.hideNav ? mobileStyle.title2 : style.title2
+                      }
+                    >
+                      About
+                    </p>
+                    <p
+                      style={
+                        this.state.hideNav
+                          ? mobileStyle.description
+                          : style.description
+                      }
+                    >
                       {this.state.productInfo[0].description}
                     </p>
                   </div>
@@ -387,18 +400,18 @@ class Product extends React.Component {
             <DetailInfo customKey={this.props.match.params.name}></DetailInfo>
           ) : null}
 
-          {this.state.showCalculator ? (
-            // <Calculator
-            //   // codeGenerator={() => this.codeGenerator()}
-            //   isThereAFan={this.state.isThereAFan}
-            //   height={this.state.calcHeight}
-            //   width={this.state.calcWidth}
-            //   title="Calculator"
-            //   type={this.state.productType}
-            //   fullScreen={this.state.hideNav}
-            // ></Calculator>
-            null
-          ) : null}
+          {/* {this.state.showCalculator
+            ? // <Calculator
+              //   // codeGenerator={() => this.codeGenerator()}
+              //   isThereAFan={this.state.isThereAFan}
+              //   height={this.state.calcHeight}
+              //   width={this.state.calcWidth}
+              //   title="Calculator"
+              //   type={this.state.productType}
+              //   fullScreen={this.state.hideNav}
+              // ></Calculator>
+              null
+            : null} */}
         </div>
       </BurgerMenu>
     );

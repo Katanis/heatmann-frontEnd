@@ -1,36 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './Desktop.css';
-import AliceCarousel from 'react-alice-carousel';
-import PopUpImage from '../../../../Components/PopUpImage/PopUpImage';
-
-// const HandleImageClick = (props) => {
-
-//   return(
-//     <PopUpImage></PopUpImage>
-//   )
-// }
+import { useTranslation } from 'react-i18next';
 
 class Desktop extends React.Component {
-  // const [path, setPath] = useState('');
-  // const [name, setName] = useState('');
-  // const [imageStyle, setImageStyle] = useState({display: 'none'});
-  // position: absolute;
-  // z-index: 9;
-  // width: -webkit-fill-available;
-  // height: auto;
-  // max-width: 90%;
-  // max-height: 90%;
-
   state = {
     path: null,
     name: null,
     imageStyle: {
-      display: 'none'
+      display: 'none',
     },
     url: this.props.url,
     showText1: false,
-    showText2: false
+    showText2: false,
   };
 
   handleImageClick(path, name) {
@@ -44,8 +26,8 @@ class Desktop extends React.Component {
         width: '-webkit-fill-available',
         height: 'auto',
         maxWidth: '80%',
-        maxHeight: '80%'
-      }
+        maxHeight: '80%',
+      },
     });
   }
 
@@ -89,7 +71,7 @@ class Desktop extends React.Component {
         minWidth: '60%',
         width: '-webkit-fill-available',
         backgroundRepeat: 'round',
-        boxShadow: 'rgba(0, 0, 0, 0.1) 7px 10px 10px 3px'
+        boxShadow: 'rgba(0, 0, 0, 0.1) 7px 10px 10px 3px',
 
         // borderRadius: '5px'
       },
@@ -102,7 +84,7 @@ class Desktop extends React.Component {
         fontWeight: 'normal',
         fontSize: '36px',
         textTransform: 'uppercase',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
       },
       headding: {
         fontFamily: 'Open Sans',
@@ -111,25 +93,36 @@ class Desktop extends React.Component {
         fontSize: '26px',
         lineHeight: '16px',
         paddingLeft: '10px',
-        color: '#535353'
+        color: '#535353',
       },
       text: {
         fontFamily: 'Open Sans',
         fontStyle: 'normal',
         fontWeight: 'normal',
-        fontSize: '18px',
+        fontSize: '14px',
         lineHeight: '20px',
         paddingLeft: '10px',
-        color: '#535353'
+        color: '#535353',
       },
       container: {
         display: 'flex',
-        flexWrap: 'no-wrap'
+        flexWrap: 'no-wrap',
       },
       textContainer: {
         // width: '40%'
-      }
+      },
     };
+
+    function MyComponent() {
+      const { t, i18n } = useTranslation();
+      return (
+        <span style={{ fontSize: 'bold', fontWeight: 'bold' }}>
+          {t('data.project.title')}
+        </span>
+      );
+    }
+    
+
     return (
       <div style={style.container}>
         <div
@@ -138,7 +131,7 @@ class Desktop extends React.Component {
             backgroundImage:
               'linear-gradient(to top, #535353 0%, rgba(83, 83, 83, 0.04) 54.48%), url(' +
               this.state.url +
-              ')'
+              ')',
           }}
         >
           <h1 style={style.textBottom}>{this.props.description}</h1>
@@ -157,7 +150,9 @@ class Desktop extends React.Component {
           </p>
           <p style={style.text}>
             <span style={{ fontSize: 'bold', fontWeight: 'bold' }}>
-              Heatmann Product(s):
+              <Suspense fallback="loading">
+                <MyComponent />
+              </Suspense>
             </span>{' '}
             {this.props.products}
           </p>
@@ -178,10 +173,10 @@ class Desktop extends React.Component {
               display: 'flex',
               justifyContent: 'space-between',
               right: '100px',
-              position: 'relative'
+              position: 'relative',
             }}
           >
-            {this.props.projectImages.map(result => {
+            {this.props.projectImages.map((result) => {
               return (
                 <img
                   className="projectImages"

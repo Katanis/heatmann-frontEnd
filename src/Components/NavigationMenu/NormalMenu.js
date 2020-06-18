@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import './Navigation.css';
 
 class NavigationMenu extends React.Component {
   render() {
@@ -17,10 +19,10 @@ class NavigationMenu extends React.Component {
         background: '#FFF',
         width: '100%',
         color: 'Orange',
-        fontFamily: 'open-sans'
+        fontFamily: 'open-sans',
       },
       logo: {
-        margin: '0 auto'
+        margin: '0 auto',
       },
       body: {
         display: 'flex',
@@ -29,7 +31,7 @@ class NavigationMenu extends React.Component {
         width: '100vw',
         height: '50px',
         // filter: this.state.menuOpen ? 'blur(2px)' : null,
-        transition: 'filter 0.5s ease'
+        transition: 'filter 0.5s ease',
       },
       link: {
         textDecoration: 'none',
@@ -42,34 +44,43 @@ class NavigationMenu extends React.Component {
         marginTop: '5px',
         marginLeft: '10px',
         marginRight: '10px',
-        borderBottom: '0.25px solid #E1E1E1;'
+        borderBottom: '0.25px solid #E1E1E1;',
       },
       line: {
         width: '100%',
         height: '2px',
         background: '#AFB1B3',
-        margin: '0 auto'
+        margin: '0 auto',
         // animation: '0.5s shrink forwards',
         // animationDelay:this.props.delay,
-      }
+      },
     };
+
+    function Mycomponent() {
+      const { t, i18n } = useTranslation();
+      return (
+        <div style={{ display: 'flex', float: 'right' }}>
+          <Link className="glow"  to="/products">
+            {t('data.topNavigation.products')}
+          </Link>
+          <Link className="glow"  to="/projects">
+            {t('data.topNavigation.projects')}
+          </Link>
+          <Link className="glow"  to="/about">
+            {t('data.topNavigation.about')}
+          </Link>
+        </div>
+      );
+    }
     return (
       <div>
-        <div style={{margin: '30px 150px'}} >
+        <div style={{ margin: '30px 150px' }}>
           <Link to="/">
             <img alt="heamtann-logo" src={this.props.logo}></img>
           </Link>
-          <div style={{ display: 'flex', float: 'right'}}>
-            <Link style={styles.link} to="/products">
-              Products
-            </Link>
-            <Link style={styles.link} to="/projects">
-              Projects
-            </Link>
-            <Link style={styles.link} to="/about">
-              About us
-            </Link>
-          </div>
+          <Suspense fallback="loading">
+            <Mycomponent />
+          </Suspense>
         </div>
         <div style={styles.line}></div>
       </div>

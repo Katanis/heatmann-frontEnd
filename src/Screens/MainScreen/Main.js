@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './Main.css';
 import './Transitions.css';
-
+import { useTranslation } from 'react-i18next';
 import BurgerMenu from '../../Components/NavigationMenu/BurgerMenu';
 import Banner from '../../Components/Banner/Banner';
 import MainScreenCard from '../../Components/MainScreenCard/Card';

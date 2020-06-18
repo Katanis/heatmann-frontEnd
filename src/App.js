@@ -7,29 +7,35 @@ import Projects from './Screens/Projects/Projects';
 import Product from './Screens/Products/Product/Product';
 import Project from './Screens/Projects/Project/Project';
 import Footer from './Components/Footer/Footer';
-import BurgerMenu from './Components/NavigationMenu/BurgerMenu';
+import Admin from './Screens/Admin/Admin';
+import PrivateRoute from './PrivateRoute';
+import { AuthContext } from './context/auth';
 import './App.css';
 
 function App() {
   const style = {
     container: {
-      overflow: 'hidden'
-    }
+      overflow: 'hidden',
+    },
   };
+
   return (
     <div className="App" style={style.container}>
       <div style={{ height: '100%' }}>
         {/* <BurgerMenu></BurgerMenu> */}
-        <BrowserRouter>
-          <Switch>
-            <Route path="/about" component={About}></Route>
-            <Route path="/products" component={Products}></Route>
-            <Route path="/projects" component={Projects}></Route>
-            <Route path="/product/:name" component={Product}></Route>
-            <Route path="/project/:name" component={Project}></Route>
-            <Route exact path="/" component={Main}></Route>
-          </Switch>
-        </BrowserRouter>
+        <AuthContext.Provider value={false}>
+          <BrowserRouter>
+            <Switch>
+              <PrivateRoute path="/admin" component={Admin}></PrivateRoute>
+              <Route path="/about" component={About}></Route>
+              <Route path="/products" component={Products}></Route>
+              <Route path="/projects" component={Projects}></Route>
+              <Route path="/product/:name" component={Product}></Route>
+              <Route path="/project/:name" component={Project}></Route>
+              <Route exact path="/" component={Main}></Route>
+            </Switch>
+          </BrowserRouter>
+        </AuthContext.Provider>
       </div>
       {/* <Footer></Footer> */}
     </div>

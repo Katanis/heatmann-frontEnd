@@ -1,39 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
-const DetailInfo = props => {
+const DetailInfo = (props) => {
   let [data, setData] = useState(null);
-
-  let TitleSize = '36px';
-  props.fullScreen ? TitleSize = '36px' : TitleSize = '20px';
-  let descriptionSize = '16px';
-  props.fullScreen ? descriptionSize = '16px' : descriptionSize = '14px';
-
-  const style = {
-    title: {
-      textAlign: 'left',
-      fontFamily: 'Oswald',
-      fontStyle: 'normal',
-      fontWeight: 'normal',
-      fontSize: TitleSize,
-      lineHeight: '118.2%',
-      textTransform: 'uppercase',
-      color: '#535353',
-      padding: '20px 20px 20px 0'
-    },
-    description: {
-      textAlign: 'left',
-      fontFamily: 'Oswald',
-      fontStyle: 'normal',
-      fontWeight: 'normal',
-      fontSize: descriptionSize,
-      lineHeight: '118.2%',
-      textTransform: 'uppercase',
-      color: '#535353',
-      margin: '15px 15px 15px 0'
-    }
-  };
-
 
   useEffect(() => {
     const getData = async () => {
@@ -47,94 +17,130 @@ const DetailInfo = props => {
   }, []);
 
   return (
+    <Suspense fallback="loading">
+      <MyComponent data={data} />
+    </Suspense>
+  );
+};
+
+const MyComponent = (props) => {
+  let TitleSize = '36px';
+  props.fullScreen ? (TitleSize = '36px') : (TitleSize = '20px');
+  let descriptionSize = '16px';
+  props.fullScreen ? (descriptionSize = '16px') : (descriptionSize = '14px');
+  const style = {
+    title: {
+      textAlign: 'left',
+      fontFamily: 'Oswald',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontSize: TitleSize,
+      lineHeight: '118.2%',
+      textTransform: 'uppercase',
+      color: '#535353',
+      padding: '20px 20px 20px 0',
+    },
+    description: {
+      textAlign: 'left',
+      fontFamily: 'Oswald',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontSize: descriptionSize,
+      lineHeight: '118.2%',
+      textTransform: 'uppercase',
+      color: '#535353',
+      margin: '15px 15px 15px 0',
+    },
+  };
+  const { t, i18n } = useTranslation();
+
+  return (
     <div>
-      <h1 style={style.title}>Technical Information</h1>
-      {console.log('Data: ' + data)}
-      {/* {console.log('Data: '+data)}gaunu null cia arba tuscia */}
-      {data ? (
+      <h1 style={style.title}>{t('data.product.title')}</h1>
+      {props.data ? (
         <div>
-          {data[0] !== undefined ? (
+          {props.data[0] !== undefined ? (
             <div>
               <p style={style.description}>
-                <span>Width: </span> <span>{data[0].width}</span>
+                <span>{t('data.product.width')}</span> <span>{props.data[0].width}</span>
               </p>
               <p style={style.description}>
-                <span>Height: </span> <span>{data[0].height}</span>
+                <span>{t('data.product.height')}</span> <span>{props.data[0].height}</span>
               </p>
               <p style={style.description}>
-                <span>Length: </span> <span>{data[0].length}</span>
+                <span>{t('data.product.length')}</span> <span>{props.data[0].length}</span>
               </p>
               <p style={style.description}>
-                <span>Height Adjustment: </span>{' '}
-                <span>{data[0].height_adjustment}</span>
+                <span>{t('data.product.height_adjustment')}</span>{' '}
+                <span>{props.data[0].height_adjustment}</span>
               </p>
               <p style={style.description}>
-                <span>Stainless Trought: </span>{' '}
-                <span>{data[0].stainless_trought}</span>
+                <span>{t('data.product.stainless_trought')}</span>{' '}
+                <span>{props.data[0].stainless_trought}</span>
               </p>
-              {data[0].grill_type !== null ? (
+              {props.data[0].grill_type !== null ? (
                 <p style={style.description}>
-                  <span>Grill type: </span> <span>{data[0].grill_type}</span>
+                  <span>{t('data.product.grill_type')}</span>{' '}
+                  <span>{props.data[0].grill_type}</span>
                 </p>
               ) : null}
-              {data[0].grill_material !== null ? (
+              {props.data[0].grill_material !== null ? (
                 <p style={style.description}>
-                  <span>Grill material: </span>{' '}
-                  <span>{data[0].grill_material}</span>
+                  <span>{t('data.product.grill_material')}</span>{' '}
+                  <span>{props.data[0].grill_material}</span>
                 </p>
               ) : null}
               <p style={style.description}>
-                <span>Heat medium connection: </span>{' '}
-                <span>{data[0].heat_medium_connection}</span>
+                <span>{t('data.product.heat_m_c')}</span>{' '}
+                <span>{props.data[0].heat_medium_connection}</span>
               </p>
 
-              <h1 style={style.title}>Operating Conditions</h1>
-              {data[0].max_temp !== null ? (
+              <h1 style={style.title}>{t('data.product.title2')}</h1>
+              {props.data[0].max_temp !== null ? (
                 <p style={style.description}>
-                  <span>Max. working temperature: </span>{' '}
-                  <span>{data[0].max_temp}</span>
+                  <span>{t('data.product.max_w_t')}</span>{' '}
+                  <span>{props.data[0].max_temp}</span>
                 </p>
               ) : null}
-              {data[0].working_pressure !== null ? (
+              {props.data[0].working_pressure !== null ? (
                 <p style={style.description}>
-                  <span>Working overpressure: </span>{' '}
-                  <span>{data[0].working_pressure}</span>
+                  <span>{t('data.product.work_overpressure')}</span>{' '}
+                  <span>{props.data[0].working_pressure}</span>
                 </p>
               ) : null}
-              {data[0].grill_material !== null ? (
+              {props.data[0].grill_material !== null ? (
                 <p style={style.description}>
-                  <span>Max. working overpressure: </span>{' '}
-                  <span>{data[0].max_pressure}</span>
+                  <span>{t('data.product.m_work_overpressure')}</span>{' '}
+                  <span>{props.data[0].max_pressure}</span>
                 </p>
               ) : null}
-              {data[0].ambient_temp !== null ? (
+              {props.data[0].ambient_temp !== null ? (
                 <p style={style.description}>
-                  <span>Ambient temperature: </span>{' '}
-                  <span>{data[0].ambient_temp}</span>
+                  <span>{t('data.product.ambient_temp')}</span>{' '}
+                  <span>{props.data[0].ambient_temp}</span>
                 </p>
               ) : null}
-              {data[0].relative_humidity !== null ? (
+              {props.data[0].relative_humidity !== null ? (
                 <p style={style.description}>
-                  <span>Relative humidity: </span>{' '}
-                  <span>{data[0].relative_humidity}</span>
+                  <span>{t('data.product.rel_hum')}</span>{' '}
+                  <span>{props.data[0].relative_humidity}</span>
                 </p>
               ) : null}
-
-              {data[0].operating_voltage !== null ? (
+              {props.data[0].operating_voltage !== null ? (
                 <p style={style.description}>
-                  <span>Operating voltage: </span>{' '}
-                  <span>{data[0].operating_voltage}</span>
+                  <span>{t('data.product.op_volt')}</span>{' '}
+                  <span>{props.data[0].operating_voltage}</span>
                 </p>
               ) : null}
-              {data[0].protection_class !== null ? (
+              {props.data[0].protection_class !== null ? (
                 <p style={style.description}>
-                  <span>Protection class: </span>{' '}
-                  <span>{data[0].protection_class}</span>
+                  <span>{t('data.product.protect_class')}</span>{' '}
+                  <span>{props.data[0].protection_class}</span>
                 </p>
               ) : null}
-              {data[0].control !== null ? (
+              {props.data[0].control !== null ? (
                 <p style={style.description}>
-                  <span>Control : </span> <span>{data[0].control}</span>
+                  <span>{t('data.product.control')}</span> <span>{props.data[0].control}</span>
                 </p>
               ) : null}
             </div>
@@ -144,7 +150,7 @@ const DetailInfo = props => {
         <span>Loading</span>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default DetailInfo;

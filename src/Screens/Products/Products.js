@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import axios from 'axios';
 
 import BurgerMenu from '../../Components/NavigationMenu/BurgerMenu';
 import ProductCard from '../../Components/ProductCard/ProductCard';
 import Loader from 'react-loader-spinner';
+import { useTranslation } from 'react-i18next';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
@@ -15,13 +16,13 @@ class Products extends React.Component {
     hideNav: null,
     styles: {
       h1: {
-        marginTop: '50px'
+        marginTop: '50px',
       },
       containerMobile: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        marginTop: '50px'
+        marginTop: '50px',
       },
       containerPc: {
         display: 'flex',
@@ -31,18 +32,18 @@ class Products extends React.Component {
         marginTop: '50px',
         // marginLeft: '150px',
         // marginRight: '150px'
-      }
-    }
+      },
+    },
   };
 
   componentDidMount() {
     //this.setState({ loading: true });
-    axios.get(this.state.path + '/api/products').then(res => {
+    axios.get(this.state.path + '/api/products').then((res) => {
       const products = res.data;
       //if(products.result.default === '1'){
       this.setState({ products: products.result, loading: false });
       //}
-      console.log(products.result.default);
+      // console.log(products.result.default);
     });
 
     window.addEventListener('resize', this.resize.bind(this));
@@ -83,7 +84,7 @@ class Products extends React.Component {
               : this.state.styles.containerPc
           }
         >
-          {this.state.products.map(result => {
+          {this.state.products.map((result) => {
             return result.default === 1 &&
               result.type === 'trench_convector' ? (
               <ProductCard
@@ -97,7 +98,7 @@ class Products extends React.Component {
             ) : null;
           })}
         </div>
-      ))
+      )),
     };
   };
 
@@ -110,7 +111,7 @@ class Products extends React.Component {
             : this.state.styles.containerPc
         }
       >
-        {this.state.products.map(result => {
+        {this.state.products.map((result) => {
           return result.default === 1 && result.type === 'wall_freestanding' ? (
             <ProductCard
               link={result.key}
@@ -136,31 +137,44 @@ class Products extends React.Component {
         lineHeight: '118.2%',
         textTransform: 'uppercase',
         color: '#535353',
-        textAlign: 'center'
+        textAlign: 'center',
       },
       containerMobile: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        marginTop: '50px'
+        marginTop: '50px',
       },
       containerPc: {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        marginTop: '50px'
-      }
+        marginTop: '50px',
+      },
     };
+
+    function Mycomponent() {
+      const { t, i18n } = useTranslation();
+      return <h1 style={styles.h1}>{t('data.products.title')}</h1>;
+    }
+    function Mycomponent2() {
+      const { t, i18n } = useTranslation();
+      return <h1 style={styles.h1}>{t('data.products.title2')}</h1>;
+    }
 
     return (
       <div>
         <BurgerMenu logo={this.state.path + '/images/logos_Headmann-big.png'}>
           <header className="App-header"></header>
           <div>
-            <h1 style={styles.h1}>Trench Convectors</h1>
+            <Suspense fallback="loading">
+              <Mycomponent />
+            </Suspense>
             <this.TrenchProductBlock></this.TrenchProductBlock>
-            <h1 style={styles.h1}>Wall and freestanding</h1>
+            <Suspense fallback="loading">
+              <Mycomponent2 />
+            </Suspense>
             <this.CubeProductBlock></this.CubeProductBlock>
           </div>
         </BurgerMenu>

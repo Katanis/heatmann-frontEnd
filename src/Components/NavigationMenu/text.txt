@@ -1,0 +1,24 @@
+
+/* .glow:hover {
+  /* font-size: 20px; */
+  color: #fff;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+  text-shadow: 0 0 5px rgb(249, 99, 2), 0 0 20px rgb(243, 146, 81),
+    0 0 30px rgb(249, 99, 2), 0 0 40px rgb(249, 99, 2), 0 0 50px rgb(249, 99, 2), 0 0 60px rgb(249, 99, 2),
+    0 0 70px rgb(249, 99, 2);
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgb(231, 78, 78), 0 0 20px rgb(245, 1, 1),
+      0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073,
+      0 0 70px #e60073;
+  }
+
+  to {
+    text-shadow: 0 0 20px rgb(83, 83, 83), 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+} */

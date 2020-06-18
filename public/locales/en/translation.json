@@ -1,0 +1,57 @@
+{
+  "data":{
+    "about":{
+      "title": "About us",
+      "description1": "HEATMANN GmbH was established in a small German village of Bückeburg in 2013. HEATMANN is a new, but rapidly advancing heaters manufacturer. We are proud of our team of highly professional engineers, architects, designers and other partners who produce innovative heating solutions.",
+      "title2": "Our Vision",
+      "description2": "Our main goal is to integrate the latest technologies, ergonomic management and maintenance with energy efficiency and an attractive and distinctive design. HEATMANN aims to manufacture heating equipment which would be energy efficient and outstanding in design and comfortability.",
+      "title3": "Evolution",
+      "description3": "HEATMANN introduced its first products to the German market in the autumn of 2013. In the spring of 2014 company has introduced its production in United Kingdom, Switzerland, Austria, France, Italy, Spain, Russia and Poland.",
+      "title4": "Products",
+      "description4": "At the moment HEATMANN manufactures “freestanding / wall mounted convectors” and “trench convectors”. These products were in development, including testing and upgrades for more than 9 months. After the launch of mass production, products have become high in demand because of their unique technological solutions and attractive appearance. Later in 2014 HEATMANN plans to introduce its newly created convectors for houses, public places and industrial buildings.",
+      "title5": "Technologies and Innovations",
+      "description5": "HEATMANN founded its own laboratory, which performs continuous testing and creates innovative solutions for their products to get the best results, and become a leader in Western Europe. Laboratory has 5 professional and highly experienced German scientists and engineers."
+    },
+    "products": {
+      "title": "Trench Convectors",
+      "title2": "Wall and freestanding"
+    },
+    "product": {
+      "title": "Technical Information: ",
+      "width": "Width: ",
+      "height": "Height: ",
+      "length": "Length: ",
+      "height_adjustment": "Height Adjustment: ",
+      "stainless_trought": "Stainless Trought: ",
+      "grill_type": "Grill type: ",
+      "grill_material": "Grill material: ",
+      "heat_m_c": "Heat medium connection: ",
+      "title2": "Operating Conditions",
+      "max_w_t": "Max. working temperature: ",
+      "work_overpressure": "Working overpressure: ",
+      "m_work_overpressure": "Max. working overpressure: ",
+      "ambient_temp": "Ambient temperature: ",
+      "rel_hum": "Relative humidity: ",
+      "op_volt": "Operating voltage: ",
+      "protect_class": "Protection class: ",
+      "control": "Control: "
+    },
+    "projects":{
+      "title": "PROJECTS"
+    },
+    "project":{
+      "title": "Heatmann Product(s): ",
+      "read_m": "... read more!",
+      "read_l": "read less!"
+    },
+    "home":{
+      "title1": "CONTROLL YOUR CLIMATE WITH US",
+      "title2": "OUR NEW PRODUCTS"
+    },
+    "topNavigation": {
+      "products": "Products",
+      "projects": "Projects",
+      "about": "About us"
+    }
+  }
+}

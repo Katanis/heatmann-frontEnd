@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import NormalMenu from './NormalMenu';
 import FooterExternal from '../Footer/Footer';
+import { useTranslation } from 'react-i18next';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       menuOpen: false,
-      hideNav: null
+      hideNav: null,
     };
   }
 
@@ -37,7 +38,7 @@ class App extends React.Component {
     const styles = {
       container: {
         position: 'absolute',
-        top: 0,
+        top: '20px',
         left: 0,
         zIndex: '99',
         opacity: 1,
@@ -47,10 +48,10 @@ class App extends React.Component {
         background: '#FFF',
         width: '100%',
         color: 'Orange',
-        fontFamily: 'open-sans'
+        fontFamily: 'open-sans',
       },
       logo: {
-        margin: '0 auto'
+        margin: '0 auto',
       },
       body: {
         display: 'flex',
@@ -59,7 +60,7 @@ class App extends React.Component {
         width: '100vw',
         height: 'auto',
         filter: this.state.menuOpen ? 'blur(2px)' : null,
-        transition: 'filter 0.5s ease'
+        transition: 'filter 0.5s ease',
       },
       link: {
         textDecoration: 'none',
@@ -70,10 +71,27 @@ class App extends React.Component {
         textAlign: 'justify',
         color: '#535353',
         marginTop: '5px',
-        borderBottom: '0.25px solid #E1E1E1;'
-      }
+        borderBottom: '0.25px solid #E1E1E1;',
+      },
     };
-    
+    const MyComponent = (props) => {
+      const { t, i18n } = useTranslation();
+
+      return (
+        <Menu open={props.menuOpen}>
+          <Link style={styles.link} to="/products">
+            {t('data.topNavigation.products')}
+          </Link>
+          <Link style={styles.link} to="/projects">
+            {t('data.topNavigation.projects')}
+          </Link>
+          <Link style={styles.link} to="/about">
+            {t('data.topNavigation.about')}
+          </Link>
+        </Menu>
+      );
+    }
+
     return (
       <div>
         {this.state.hideNav ? (
@@ -87,20 +105,10 @@ class App extends React.Component {
                 onClick={() => this.handleMenuClick()}
                 color="orange"
               />
+              <Suspense fallback="loading">
+                <MyComponent menuOpen={this.state.menuOpen} />
+              </Suspense>
             </div>
-            <Menu open={this.state.menuOpen}>
-              {/* {menuItems} */}
-              {/* <Link to="/">Home</Link> */}
-              <Link style={styles.link} to="/products">
-                Products
-              </Link>
-              <Link style={styles.link} to="/projects">
-                Projects
-              </Link>
-              <Link style={styles.link} to="/about">
-                About us
-              </Link>
-            </Menu>
           </div>
         ) : (
           <NormalMenu logo={this.props.logo}></NormalMenu>
@@ -129,7 +137,7 @@ class MenuItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hover: false
+      hover: false,
     };
   }
 
@@ -142,14 +150,14 @@ class MenuItem extends React.Component {
       container: {
         opacity: 0,
         animation: '1s appear forwards',
-        animationDelay: this.props.delay
+        animationDelay: this.props.delay,
       },
       menuItem: {
         fontFamily: `'Open Sans', sans-serif`,
         fontSize: '1.2rem',
         margin: '0 5%',
         cursor: 'pointer',
-        color: 'black'
+        color: 'black',
         // transition: 'color 0.2s ease-in-out',
         // animation: '0.5s slideIn forwards',
         // animationDelay:this.props.delay,
@@ -158,10 +166,10 @@ class MenuItem extends React.Component {
         width: '90%',
         height: '1px',
         background: 'gray',
-        margin: '0 auto'
+        margin: '0 auto',
         // animation: '0.5s shrink forwards',
         // animationDelay:this.props.delay,
-      }
+      },
     };
     return (
       <div style={styles.container}>
@@ -190,7 +198,7 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: this.props.open ? this.props.open : false
+      open: this.props.open ? this.props.open : false,
     };
   }
 
@@ -215,15 +223,15 @@ class Menu extends React.Component {
         transition: 'height 0.3s ease',
         zIndex: 2,
         boxSizing: 'border-box',
-        borderBottomRightRadius: '20px'
+        borderBottomRightRadius: '20px',
       },
       menuList: {
         paddingTop: '5px',
         // marginTop: '50px',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start'
-      }
+        alignItems: 'flex-start',
+      },
     };
     return (
       <div style={styles.container}>
@@ -241,7 +249,7 @@ class MenuButton extends React.Component {
     super(props);
     this.state = {
       open: this.props.open ? this.props.open : false,
-      color: this.props.color ? this.props.color : 'black'
+      color: this.props.color ? this.props.color : 'black',
     };
   }
 
@@ -265,28 +273,28 @@ class MenuButton extends React.Component {
         justifyContent: 'center',
         alignItems: 'center',
         cursor: 'pointer',
-        padding: '4px'
+        padding: '4px',
       },
       line: {
         height: '2px',
         width: '20px',
         background: this.state.color,
-        transition: 'all 0.2s ease'
+        transition: 'all 0.2s ease',
       },
       lineTop: {
         transform: this.state.open ? 'rotate(45deg)' : 'none',
         transformOrigin: 'top left',
-        marginBottom: '5px'
+        marginBottom: '5px',
       },
       lineMiddle: {
         opacity: this.state.open ? 0 : 1,
-        transform: this.state.open ? 'translateX(-16px)' : 'none'
+        transform: this.state.open ? 'translateX(-16px)' : 'none',
       },
       lineBottom: {
         transform: this.state.open ? 'translateX(-1px) rotate(-45deg)' : 'none',
         transformOrigin: 'top left',
-        marginTop: '5px'
-      }
+        marginTop: '5px',
+      },
     };
     return (
       <div
@@ -319,26 +327,26 @@ function Footer(props) {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      color: props.color
+      color: props.color,
     },
     line: {
       height: '1px',
       width: '90%',
-      background: props.color
+      background: props.color,
     },
     text: {
-      padding: '0.5rem'
-    }
+      padding: '0.5rem',
+    },
   };
 
   const style = {
     verticalLine: {
-      borderLeft: '1px solid #F96302'
+      borderLeft: '1px solid #F96302',
     },
     container: {
       display: 'flex',
       flexWrap: 'no-wrap',
-      justifyContent: 'space-evenly'
+      justifyContent: 'space-evenly',
     },
     text: {
       fontFamily: 'Oswald',
@@ -348,7 +356,7 @@ function Footer(props) {
       lineHeight: '27px',
       textTransform: 'uppercase',
       color: '#535353',
-      wordWrap: 'break-word'
+      wordWrap: 'break-word',
     },
     childText: {
       fontFamily: 'Oswald',
@@ -357,8 +365,8 @@ function Footer(props) {
       fontSize: '13px',
       lineHeight: '104.68%',
       textTransform: 'uppercase',
-      color: '#535353'
-    }
+      color: '#535353',
+    },
   };
 
   return (
@@ -373,13 +381,13 @@ function Footer(props) {
 }
 
 Footer.defaultProps = {
-  color: 'black'
+  color: 'black',
   // title: 'hello world!'
 };
 
 Footer.propTypes = {
   color: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default App;

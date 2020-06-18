@@ -51,8 +51,8 @@ class Project extends React.Component {
     const { projectid } = this.props.location.state;
     const {link} =this.props.location.state;
 
-    console.log("project id: " + projectid);
-    console.log("project link: " + link);
+    // console.log("project id: " + projectid);
+    // console.log("project link: " + link);
 
     const style = {
       mainImage: {

@@ -1,0 +1,26 @@
+.glow {
+  text-decoration: none;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  text-align: justify;
+  color: rgb(83, 83, 83);
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: hidden;
+  display: inline-block;
+  background: linear-gradient(to right, rgb(249, 99, 2), rgb(249, 99, 2) 50%, rgb(83, 83, 83) 50%);
+  font-weight: 600;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  background-position: 100%;
+  transition: background-position 275ms ease;
+}
+
+.glow:hover{
+  background-position: 0 100%;
+}
