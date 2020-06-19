@@ -41,6 +41,12 @@ function Login(props) {
     console.log(JSON.parse(localStorage.getItem('tokens')));
   }
 
+  function _handleKeyDown(e) {
+    if (e.key === 'Enter') {
+      postLogin();
+    }
+  }
+
   if (isLoggedIn) {
     return <Redirect to={referer} />;
   }
@@ -58,6 +64,7 @@ function Login(props) {
           placeholder="email"
         />
         <Input
+          onKeyDown={_handleKeyDown}
           type="password"
           value={password}
           onChange={(e) => {
