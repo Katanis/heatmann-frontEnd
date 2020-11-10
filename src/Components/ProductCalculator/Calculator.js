@@ -2,90 +2,90 @@ import React, { useState, useEffect } from 'react';
 import DropDownInput from './CalculatorComponents/DropDownInput';
 import axios from 'axios';
 
-const Calculator = props => {
+const Calculator = (props) => {
   const test = {
     result: [
       {
-        value: 'assd'
+        value: 'assd',
       },
       {
-        value: 'ddd'
-      }
+        value: 'ddd',
+      },
     ],
     heatExchanger: [
       {
-        value: 'Not dyed'
+        value: 'Not dyed',
       },
       {
-        value: 'Painted black'
-      }
+        value: 'Painted black',
+      },
     ],
     boxMaterial: [
       {
-        value: 'standard (galvanized steel box painted black)'
+        value: 'standard (galvanized steel box painted black)',
       },
       {
         value:
-          'galvanized steel box painted with a wear-resistant matte dark gray color'
+          'galvanized steel box painted with a wear-resistant matte dark gray color',
       },
       {
-        value: 'stainless steel'
+        value: 'stainless steel',
       },
-      { value: 'black painted stainless steel' }
+      { value: 'black painted stainless steel' },
     ],
     frame: [
       {
-        value: 'profile P, color: aluminum'
+        value: 'profile P, color: aluminum',
       },
       {
-        value: 'profile P, color: light bronze'
+        value: 'profile P, color: light bronze',
       },
       {
-        value: 'profile P, color: dark bronze'
+        value: 'profile P, color: dark bronze',
       },
       {
-        value: 'profile P, color: custom RAL'
+        value: 'profile P, color: custom RAL',
       },
       {
-        value: 'T profile, color: aluminum'
+        value: 'T profile, color: aluminum',
       },
       {
-        value: 'T profile, color: light bronze'
+        value: 'T profile, color: light bronze',
       },
       {
-        value: 'T profile, color: dark bronze'
+        value: 'T profile, color: dark bronze',
       },
       {
-        value: 'T profile, color: RAL custom'
-      }
+        value: 'T profile, color: RAL custom',
+      },
     ],
     connection: [
       {
-        value: 'right'
+        value: 'right',
       },
       {
-        value: 'left'
+        value: 'left',
       },
       {
-        value: 'not standart'
-      }
+        value: 'not standart',
+      },
     ],
     note: [
       {
-        value: 'standart model'
+        value: 'standart model',
       },
       {
-        value: 'not standard model'
-      }
+        value: 'not standard model',
+      },
     ],
     fan: [
       {
-        value: 20
+        value: 20,
       },
       { value: 40 },
       { value: 65 },
-      { value: 100 }
-    ]
+      { value: 100 },
+    ],
   };
   const [generatedCode, setCode] = useState('');
   const [length, setLength] = useState('');
@@ -115,11 +115,12 @@ const Calculator = props => {
           '/' +
           width);
 
-    axios.get(url).then(_result => {
+    axios.get(url).then((_result) => {
       console.log('Duomenys: ' + JSON.stringify(_result));
       setCoeficient(_result.m);
       console.log(coeficient);
     });
+    handleChange();
   }, [length, width, height]);
 
   function handleChange() {
@@ -140,11 +141,28 @@ const Calculator = props => {
     let T2 = document.getElementById('T2').value;
     let Ti = document.getElementById('Ti').value;
     let heaterEx = document.getElementById('heaterEx').value;
+    if(heaterEx === 'Not dyed'){
+      heaterEx = '-';
+    }else{
+      heaterEx = 'D'
+    }
     let material = document.getElementById('material').value;
     let frame = document.getElementById('frame').value;
     let connection = document.getElementById('connection').value;
+    if (connection === 'left') {
+      connection = 'L';
+    } else if (connection === 'right') {
+      connection = 'R';
+    } else {
+      connection = 'B';
+    }
 
     let note = document.getElementById('note').value;
+    if (note === 'standart model') {
+      note = 1;
+    } else {
+      note = 0;
+    }
 
     console.log('coef ' + coeficient);
     let T = Math.round((T1 + T2) / 2 - Ti);
@@ -161,7 +179,9 @@ const Calculator = props => {
     document.getElementById('QW').value = Q;
     _height > 100 ? (_height = _height) : (_height = '0' + _height);
     _length > 1000 ? (_length = _length) : (_length = '0' + _length);
-    let code = props.type + _height + width + _length;
+
+
+    let code = props.type + _height + width + _length + heaterEx + connection + note;
     setCode(code);
   }
 
@@ -286,9 +306,7 @@ const Calculator = props => {
         onChange={handleChange}
       ></DropDownInput>
       {/* <p>{height} {width} </p> */}
-      <p>{generatedCode}</p>
-      <p>GENERATED DESCRIPTION</p>
-
+      <p>Your Product Code: {generatedCode}</p>
       <button>Print PDF</button>
     </div>
   );

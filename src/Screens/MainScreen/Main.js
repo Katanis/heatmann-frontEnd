@@ -47,7 +47,7 @@ class Main extends React.Component {
 
     const styles = {
       h1: {
-        marginTop: '50px'
+        marginTop: '100px'
       },
       projectDisplayDesktop: {
         display: 'flex',

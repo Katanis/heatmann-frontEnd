@@ -138,6 +138,7 @@ class Products extends React.Component {
         textTransform: 'uppercase',
         color: '#535353',
         textAlign: 'center',
+        marginTop: '80px',
       },
       containerMobile: {
         display: 'flex',

@@ -124,7 +124,18 @@ class Footer extends React.Component {
             text1="HEATMANN GMBH"
             text2="+49 176-60020733"
             text3="info@heatmann.de"
-            text4="Wallensteinstr. 29, 80807, München, Germany"
+            text4="Johanneskirchner 94. 81927, München, Germany"
+          ></this.FooterHeading>
+          <this.FooterHeading
+            sty={style.childText}
+            textStyle={style.text}
+            stylingContainer={style.container}
+            styling={style.verticalLine}
+            text="Moscow representative office"
+            text1="HEATMANN GMBH"
+            text2="+7 926 137-98-85"
+            text3="info@heatmann.ru"
+            // text4="Wallensteinstr. 29, 80807, München, Germany"
           ></this.FooterHeading>
         </div>
         <p style={{...style.childText, textAlign: 'center'}}>© 2013-2020 HEATMANN GmbH All Rights Reserved.</p>

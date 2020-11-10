@@ -13,13 +13,12 @@ function Admin(props) {
     setAuthTokens('');
     return <Redirect to={'/login'} />;
   }
-  
 
   return (
     <div>
       <h1>Admin Page</h1>
       <Button onClick={() => setshowProjectForm(!showProjectForm)}>
-      Add new Project
+        Add new Project
       </Button>
       <div style={showProjectForm ? { display: 'block' } : { display: 'none' }}>
         <ProjectForm />

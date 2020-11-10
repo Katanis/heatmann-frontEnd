@@ -313,6 +313,15 @@ class Product extends React.Component {
         color: '#535353',
         margin: '4%',
       },
+      downloadContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      downloadLink: {
+        color: 'inherit',
+        padding: '5px 0',
+
+      }
     };
     return (
       <BurgerMenu logo="http://18.189.49.66:3000/images/logos_Headmann-big.png">
@@ -400,18 +409,22 @@ class Product extends React.Component {
             <DetailInfo customKey={this.props.match.params.name}></DetailInfo>
           ) : null}
 
-          {/* {this.state.showCalculator
-            ? // <Calculator
-              //   // codeGenerator={() => this.codeGenerator()}
-              //   isThereAFan={this.state.isThereAFan}
-              //   height={this.state.calcHeight}
-              //   width={this.state.calcWidth}
-              //   title="Calculator"
-              //   type={this.state.productType}
-              //   fullScreen={this.state.hideNav}
-              // ></Calculator>
-              null
-            : null} */}
+          {this.state.showCalculator ? (
+            <Calculator
+              // codeGenerator={() => this.codeGenerator()}
+              isThereAFan={this.state.isThereAFan}
+              height={this.state.calcHeight}
+              width={this.state.calcWidth}
+              title="Calculator"
+              type={this.state.productType}
+              fullScreen={this.state.hideNav}
+            ></Calculator>
+          ) : null}
+
+          {this.state.showDownload ? (<div style={style.downloadContainer}>
+            <a style={style.downloadLink} href='http://18.189.49.66:3000/downloads/Heatmann_LINE_LINEAIR_catalog201609_EN.pdf' download>Line Air Catalog EN</a>
+            <a style={style.downloadLink} href='http://18.189.49.66:3000/downloads/Heatmann CB Controler EN.pdf' download>Heatmann CB controller</a>
+          </div>) : null}
         </div>
       </BurgerMenu>
     );
